@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Popup Notification</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* Container for notifications */
+    .notification-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+    }
+
+    /* Notification box */
+    .notification {
+      background-color: #4caf50;
+      color: white;
+      padding: 15px 20px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      opacity: 0;
+      transform: translateX(100%);
+      transition: all 0.4s ease;
+    }
+
+    .notification.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  </style>
+</head>
+<body>
+
+  <button onclick="showNotification('Product added to cart!')">
+    Add to Cart
+  </button>
+
+  <div class="notification-container" id="notification-container"></div>
+
+  <script>
+    function showNotification(message) {
+      const container = document.getElementById("notification-container");
+
+      // Create a new notification element
+      const notification = document.createElement("div");
+      notification.classList.add("notification");
+      notification.textContent = message;
+
+      // Append notification to containercd 
+      container.appendChild(notification);
+
+      // Show it with animation
+      setTimeout(() => {
+        notification.classList.add("show");
+      }, 10);
+
+      // Hide after 5 seconds
+      setTimeout(() => {
+        notification.classList.remove("show");
+        // Remove from DOM after transition
+        setTimeout(() => {
+          container.removeChild(notification);
+        }, 400);
+      }, 5000);
+    }
+  </script>
+
+</body>
+</html>
