@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login - Desktop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="deskopLogin.css">
+
+</head>
+
+<body>
+
+    <div class="logo">
+    </div>
+
+    <div class="content">
+        <div class="image"></div>
+
+        <div class="form-section">
+            <div class="form-wrapper">
+                <h1>Login</h1>
+
+                <form id="loginForm" novalidate>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required
+                            autocomplete="email">
+                        <span class="error-message" id="emailError">Please enter a valid email</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="password" name="password" placeholder="Enter your password"
+                                minlength="5" maxlength="25" required autocomplete="current-password">
+                            <button type="button" class="password-toggle" id="togglePassword"
+                                aria-label="Toggle password visibility">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="error-message" id="passwordError">Password must be at least 5 characters</span>
+                    </div>
+
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="desktoplogin.js"></script>
+
+</body>
+
+</html>

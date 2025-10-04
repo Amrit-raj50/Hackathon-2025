@@ -1,0 +1,231 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(to bottom, #ffffff, #006FEE);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+.logo{
+    background-image: url(../assets/logo2.svg);
+    background-repeat: no-repeat;
+    background-size: 250px 250px;
+    height: 50vh;
+    width: 100vh;
+    margin-top: -70vmin;
+    margin-left: -4vmin;
+}
+
+.content {
+    display: flex;
+    height: 37.5rem;
+    width: 100%;
+    max-width: 50rem;
+    margin-top: 3rem;
+    box-shadow: 0 0.5rem 1.875rem rgba(0, 0, 0, 0.4);
+    border-radius: 1.25rem;
+    overflow: hidden;
+    margin-right: 20vw;
+}
+
+.image {
+    height: 37.5rem;
+    width: 50%;
+    background-image: url(../assets/finance-and-financial-performance-concept-illustration_53876-43398.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.form-section {
+    height: 37.5rem;
+    width: 50%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5rem;
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 22rem;
+}
+
+h1 {
+    color: #333;
+    font-size: 2.5rem;
+    margin-bottom: 6rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+label {
+    display: block;
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    font-size: 0.9375rem;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+input {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 0.0625rem solid #006FEE;
+    padding: 0.625rem 0.3125rem;
+    font-size: 1rem;
+    color: #333;
+    outline: none;
+}
+
+input:focus {
+    border-bottom-color: #0052b3;
+}
+
+input.error {
+    border-bottom-color: #dc3545;
+}
+
+input.success {
+    border-bottom-color: #28a745;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.8125rem;
+    margin-top: 0.3125rem;
+    display: none;
+}
+
+.error-message.show {
+    display: block;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 0.3125rem;
+    font-size: 1rem;
+}
+
+.password-toggle:hover {
+    color: #333;
+}
+
+button {
+    width: 100%;
+    background: #006FEE;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 1.5625rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 1.25rem;
+}
+
+button:hover {
+    background: #56A5F3;
+}
+
+button:active {
+    background: #0052b3;
+}
+
+/* Responsive Design */
+@media (max-width: 64rem) {
+    .content {
+        height: auto;
+        max-width: 40rem;
+    }
+
+    .image {
+        height: 30rem;
+    }
+
+    .form-section {
+        height: auto;
+        padding: 2rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 48rem) {
+    .content {
+        flex-direction: column;
+        max-width: 30rem;
+    }
+
+    .image {
+        width: 100%;
+        height: 18.75rem;
+    }
+
+    .form-section {
+        width: 100%;
+        padding: 2.5rem 2rem;
+    }
+
+    h1 {
+        font-size: 1.875rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (max-width: 30rem) {
+    html {
+        font-size: 14px;
+    }
+
+    body {
+        padding: 1rem;
+    }
+
+    .content {
+        margin-top: 1rem;
+    }
+
+    .image {
+        height: 15rem;
+    }
+
+    .form-section {
+        padding: 2rem 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+}
