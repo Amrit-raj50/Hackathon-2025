@@ -28,8 +28,17 @@ body {
 
 .header-content {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 12px;
+}
+.image1{
+    display: flex;
+    margin-top: 2vmin;
+}
+i{
+    margin-right: 2vmin;
+    margin-top: 0.8vmin;
 }
 
 .header-icon {
