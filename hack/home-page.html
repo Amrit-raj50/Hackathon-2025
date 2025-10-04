@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finch Expense Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary-blue: #006FEE;
+  --light-blue: #56A5F3;
+  --text-color: #262445;
+  --success-green: #27ae60;
+  --danger-red: #e74c3c;
+  --warning-orange: #f39c12;
+  --bg-light: #f5f7fb;
+  --card-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+/* Base Reset and Typography */
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', "Segoe UI", sans-serif; }
+body { background: var(--bg-light); color: var(--text-color); display: flex; min-height: 100vh; overflow: hidden; font-size: 16px; }
+
+/* SIDEBAR */
+.sidebar {
+  width: 250px;
+  background: var(--primary-blue);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem 1rem;
+  box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+}
+.brand { display: flex; justify-content: center; align-items: center; margin-bottom: 3rem; }
+.brand img { width: 180px; object-fit: contain; filter: brightness(0) invert(1); }
+.menu { display: flex; flex-direction: column; gap: 0.8rem; }
+.menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  transition: background 0.18s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.menu a i { font-size: 1.2rem; }
+.menu a:hover, .menu a.active { background: rgba(255, 255, 255, 0.15); font-weight: 500;}
+.logout { text-align: center; margin-top: auto; padding-top: 2rem;}
+.logout a { color: white; font-weight: 500; text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; display: block; transition: background 0.2s;}
+.logout a:hover { background: rgba(255, 255, 255, 0.1);}
+
+/* MAIN CONTENT */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+  position: relative; 
+}
+
+/* TOPBAR */
+.topbar {
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.topbar-left { display: flex; align-items: center; gap: 12px; }
+.topbar-logo { width: 40px; object-fit: contain; display: none; }
+.topbar-left h2 { font-size: 1.5rem; cursor: pointer; color: var(--text-color); transition: color 0.2s ease;}
+.topbar-left h2:hover { color: var(--primary-blue);}
+.user { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 5px; border-radius: 10px; transition: background 0.2s;}
+.user:hover { background: #f0f0f0; }
+.user-info { display: flex; flex-direction: column; align-items: flex-end; }
+.user img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--primary-blue); object-fit: cover;}
+.user-name { font-weight: 600; font-size: 1rem; line-height: 1.2;}
+.user-role { font-size: 0.85rem; color: gray; line-height: 1.2; }
+
+/* Dashboard Content Area */
+.dashboard-content-area {
+  padding: 2rem;
+  flex: 1;
+}
+
+/* CARDS */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.card {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.25s, box-shadow 0.25s;
+  border-left: 5px solid var(--primary-blue);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,111,238,0.15);
+}
+.card h3 { font-size: 0.95rem; color: #555; margin-bottom: 0.5rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;}
+.card p { font-size: 1.8rem; font-weight: 700; color: var(--primary-blue); transition: color 0.2s;}
+
+/* Color coding for cards for better visual distinction */
+.card-pending { border-left-color: var(--warning-orange); }
+.card-pending p { color: var(--warning-orange); }
+.card-approved { border-left-color: var(--success-green); }
+.card-approved p { color: var(--success-green); }
+.card-rejected { border-left-color: var(--danger-red); }
+.card-rejected p { color: var(--danger-red); }
+
+/* TABLES */
+.table-section {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 2rem;
+}
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.table-header h3 { font-size: 1.3rem; color: var(--text-color);}
+
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 1rem; border-bottom: 1px solid #eee; font-size: 0.95rem; }
+th { background: #f2f6ff; color: var(--primary-blue); font-weight: 600; text-transform: uppercase; font-size: 0.85rem;}
+tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: #f9fbff; }
+
+/* Buttons */
+.add-expense-btn {
+  background: var(--primary-blue);
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+.add-expense-btn:hover { background: var(--light-blue); box-shadow: 0 4px 15px rgba(0,111,238,0.3); transform: translateY(-2px);}
+
+.approval-actions button {
+  border: none;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-right: 8px;
+  transition: opacity 0.2s;
+}
+.approval-actions button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.approve-btn { background: var(--success-green); color: #fff;}
+.reject-btn { background: var(--danger-red); color: #fff;}
+
+/* --- FIX: Added specific styles for approval status spans in the Approvals Section --- */
+.approval-status { font-weight: 600; padding: 5px 10px; border-radius: 5px; }
+.approval-status.approved { color: var(--success-green); background: #e6f7e9;}
+.approval-status.pending { color: var(--warning-orange); background: #fff8e6;}
+.approval-status.rejected { color: var(--danger-red); background: #ffe6e6;}
+/* ------------------------------------------------------------------------------------ */
+
+
+/* MODAL (unchanged) */
+.modal {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+}
+.modal-content {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+}
+.modal-content h3 { margin-bottom: 0.5rem; color: var(--primary-blue); font-size: 1.5rem;}
+.modal-content form { display: flex; flex-direction: column; gap: 1rem; }
+.modal-content input, .modal-content textarea, .modal-content select {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.modal-content textarea { resize: vertical; min-height: 80px;}
+
+
+/* LARRY AI BUTTON (Hover-Reveal) */
+.ai-chat-btn {
+  /* Positioning */
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 100;
+  
+  /* Styling */
+  background: var(--success-green);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);
+  cursor: pointer;
+  
+  /* Initial Compact State */
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  padding: 0 18px;
+  
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  
+  /* Transition */
+  transition: width 0.3s ease-in-out, background 0.3s, box-shadow 0.3s;
+  overflow: hidden; 
+}
+
+/* Hover State: Expands the button */
+.ai-chat-btn:hover {
+  width: 160px; 
+  background: #2ecc71;
+  box-shadow: 0 6px 20px rgba(39, 174, 96, 0.6);
+}
+
+.ai-chat-btn i {
+  font-size: 1.8rem; 
+  flex-shrink: 0; 
+}
+
+.ai-text {
+  font-weight: 600;
+  font-size: 1rem;
+  white-space: nowrap; 
+  opacity: 1; 
+  transition: opacity 0.3s 0.1s; 
+}
+
+/* Stars: Static decorations */
+.star-deco {
+    position: fixed;
+    color: white;
+    font-size: 1em;
+    z-index: 99;
+    pointer-events: none;
+    opacity: 0.9;
+}
+#star-tl { bottom: 85px; right: 80px; animation: twinkle 2s infinite ease-in-out; }
+#star-br { bottom: 25px; right: 15px; animation: twinkle 2s infinite ease-in-out 1s; }
+
+@keyframes twinkle {
+  0%, 100% { transform: scale(0.8); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+
+/* Hide sections by default */
+.hidden { display: none; }
+
+/* Responsive Adjustments */
+@media(max-width: 768px) {
+  .sidebar { display: none; }
+  .ai-chat-btn { bottom: 20px; right: 20px; width: 50px; height: 50px; padding: 0 15px; }
+  .ai-chat-btn:hover { width: 140px; }
+  .ai-chat-btn i { font-size: 1.5rem; }
+  .star-deco { display: none; }
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+<aside class="sidebar">
+  <div>
+    <div class="brand">
+        <img src="./Frame_2-removebg-preview.png" alt="Finch Logo">
+    </div>
+    <div class="menu">
+      <a class="active" data-section="dashboard"><i class="fa-solid fa-house"></i> Dashboard</a>
+      <a data-section="add-expense" id="add-expense-link"><i class="fa-solid fa-plus-circle"></i> Add Expense</a>
+      <a data-section="approvals" id="approvals-tab"><i class="fa-solid fa-list-check"></i> Approvals</a>
+      <a data-section="reports"><i class="fa-solid fa-chart-line"></i> Reports</a>
+      <a data-section="settings"><i class="fa-solid fa-cog"></i> Settings</a>
+    </div>
+  </div>
+  <div class="logout"><a href="javascript:void(0)"><i class="fa-solid fa-sign-out-alt"></i> Log Out</a></div>
+</aside>
+
+<div class="main-content">
+  <div class="topbar">
+    <div class="topbar-left">
+      <img src="./Frame_2-removebg-preview.png" alt="Logo" class="topbar-logo">
+      <h2 id="section-title">Dashboard</h2>
+    </div>
+    <div class="user">
+      <div class="user-info">
+        <div class="user-name" id="userName">Alex Johnson</div>
+        <div class="user-role" id="userRole">Manager</div>
+      </div>
+      <img src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png" alt="Profile">
+    </div>
+  </div>
+
+  <div class="dashboard-content-area">
+    <div id="dashboard-section">
+      <div class="dashboard-cards">
+        <div class="card card-total"><h3>Total Expenses</h3><p id="total-expenses">$0.00</p></div>
+        <div class="card card-pending"><h3>Pending Approvals</h3><p id="pending-count">0</p></div>
+        <div class="card card-approved"><h3>Approved Total</h3><p id="approved-total">$0.00</p></div>
+        <div class="card card-rejected"><h3>Rejected Total</h3><p id="rejected-total">$0.00</p></div>
+      </div>
+
+      <div class="table-section">
+        <div class="table-header">
+          <h3>Recent Expenses</h3>
+          <button class="add-expense-btn" onclick="openModal()"><i class="fa-solid fa-plus"></i> Add Expense</button>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Category</th><th>Description</th><th>Amount</th><th>Status</th></tr>
+          </thead>
+          <tbody id="recent-expenses-body">
+            <tr data-status="Approved" data-amount="120.00"><td>Oct 01, 2025</td><td>Meals</td><td>Team Lunch</td><td>$120.00</td><td><span class="approval-status approved">Approved</span></td></tr>
+            <tr data-status="Pending" data-amount="45.00"><td>Oct 03, 2025</td><td>Travel</td><td>Taxi Ride</td><td>$45.00</td><td><span class="approval-status pending">Pending</span></td></tr>
+            <tr data-status="Rejected" data-amount="30.00"><td>Sep 29, 2025</td><td>Supplies</td><td>Office Paper</td><td>$30.00</td><td><span class="approval-status rejected">Rejected</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="approvals-section" class="hidden">
+      <div class="table-section">
+        <div class="table-header"><h3>Expenses Requiring Approval</h3></div>
+        <table>
+          <thead>
+            <tr><th>Employee</th><th>Date</th><th>Category</th><th>Amount</th><th>Action</th></tr>
+          </thead>
+          <tbody id="approvals-body">
+            <tr data-employee="Riya Patel" data-date="Oct 03, 2025" data-category="Travel" data-amount="180.00">
+              <td>Riya Patel</td><td>Oct 03, 2025</td><td>Travel</td><td>$180.00</td>
+              <td class="approval-actions"><button class="approve-btn">Approve</button><button class="reject-btn">Reject</button></td>
+            </tr>
+            <tr data-employee="Aman Shah" data-date="Oct 02, 2025" data-category="Meals" data-amount="90.00">
+              <td>Aman Shah</td><td>Oct 02, 2025</td><td>Meals</td><td>$90.00</td>
+              <td class="approval-actions"><button class="approve-btn">Approve</button><button class="reject-btn">Reject</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <div id="reports-section" class="hidden">
+      <div class="table-section"><div class="table-header"><h3>Expense Reports</h3></div><p>Report generation tools will be displayed here.</p></div>
+    </div>
+    <div id="settings-section" class="hidden">
+      <div class="table-section"><div class="table-header"><h3>User Settings</h3></div><p>User preferences and application settings will be configured here.</p></div>
+    </div>
+  </div>
+  
+  <button class="ai-chat-btn" onclick="openAIChat()">
+    <i class="fa-solid fa-dove"></i> 
+    <span class="ai-text">Larry AI</span>
+  </button>
+  
+  <div class="star-deco" id="star-tl">✨</div>
+  <div class="star-deco" id="star-br">✨</div>
+</div>
+
+<div class="modal" id="expense-modal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal()">×</button>
+    <h3>Add New Expense</h3>
+    <form id="expense-form">
+      <input type="date" id="exp-date" required value="">
+      <input type="text" id="exp-category" placeholder="Category (e.g. Travel, Food)" required>
+      <textarea id="exp-desc" placeholder="Description" rows="3"></textarea>
+      <input type="number" id="exp-amount" placeholder="Amount ($)" step="0.01" required>
+      <select id="exp-status">
+        <option value="Pending">Pending</option>
+        <option value="Approved">Approved</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+      <button type="submit">Add Expense</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// --- GLOBAL DATA & SETUP ---
+
+const user = { name: 'Alex Johnson', role: 'Manager' }; 
+
+const sections = {
+  'dashboard': document.getElementById('dashboard-section'),
+  'approvals': document.getElementById('approvals-section'),
+  'reports': document.getElementById('reports-section'),
+  'settings': document.getElementById('settings-section')
+};
+const recentBody = document.getElementById('recent-expenses-body');
+const approvalsTab = document.getElementById('approvals-tab');
+const sectionTitle = document.getElementById('section-title');
+const navLinks = document.querySelectorAll('.menu a');
+
+document.getElementById('exp-date').value = new Date().toISOString().split('T')[0];
+
+// --- SECTION & NAVIGATION LOGIC ---
+
+function showSection(section) {
+  Object.values(sections).forEach(el => el.classList.add('hidden'));
+  const targetSection = sections[section];
+  if (targetSection) {
+    targetSection.classList.remove('hidden');
+    sectionTitle.innerText = section.charAt(0).toUpperCase() + section.slice(1);
+    
+    navLinks.forEach(link => link.classList.remove('active'));
+    document.querySelector(`.menu a[data-section="${section}"]`)?.classList.add('active');
+    
+    if (section === 'approvals') {
+      setupApprovalButtons();
+    }
+  }
+}
+
+navLinks.forEach(link => {
+  const section = link.getAttribute('data-section');
+  if (section && section !== 'add-expense') {
+    link.addEventListener('click', () => showSection(section));
+  }
+});
+
+showSection('dashboard');
+document.getElementById('section-title').addEventListener('click', () => showSection('dashboard'));
+
+// --- AI CHAT LOGIC ---
+function openAIChat() {
+    alert("Hello! I'm Larry AI, your expense assistant. How can I help you today?");
+}
+
+
+// --- MODAL LOGIC ---
+
+const modal = document.getElementById('expense-modal');
+function openModal() {
+  modal.style.display = 'flex';
+  document.querySelector('.menu a[data-section="add-expense"]').classList.add('active');
+  document.querySelector('.menu a[data-section="dashboard"]').classList.remove('active');
+  document.querySelector('.menu a[data-section="approvals"]').classList.remove('active');
+}
+function closeModal() {
+  modal.style.display = 'none';
+  document.querySelector('.menu a[data-section="add-expense"]').classList.remove('active');
+  const currentSection = sectionTitle.innerText.toLowerCase();
+  document.querySelector(`.menu a[data-section="${currentSection}"]`)?.classList.add('active');
+}
+window.onclick = e => { if (e.target === modal) closeModal(); }
+
+// --- DATA & CARD UPDATE LOGIC ---
+
+function formatCurrency(amount) {
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+}
+
+function updateCards() {
+  let total = 0;
+  let approvedTotal = 0;
+  let rejectedTotal = 0;
+  let pendingCount = 0;
+
+  recentBody.querySelectorAll('tr').forEach(tr => {
+    const amount = parseFloat(tr.getAttribute('data-amount')) || 0;
+    const status = tr.getAttribute('data-status');
+    
+    total += amount;
+
+    if (status === 'Approved') {
+      approvedTotal += amount;
+    } else if (status === 'Rejected') {
+      rejectedTotal += amount;
+    } else if (status === 'Pending') {
+      pendingCount++;
+    }
+  });
+
+  document.getElementById('total-expenses').innerText = formatCurrency(total);
+  document.getElementById('approved-total').innerText = formatCurrency(approvedTotal);
+  document.getElementById('rejected-total').innerText = formatCurrency(rejectedTotal);
+  document.getElementById('pending-count').innerText = pendingCount;
+}
+
+// Add New Expense Handler
+document.getElementById('expense-form').addEventListener('submit', e => {
+  e.preventDefault();
+  
+  const dateStr = document.getElementById('exp-date').value || new Date().toISOString().split('T')[0];
+  const date = new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+  const category = document.getElementById('exp-category').value;
+  const description = document.getElementById('exp-desc').value;
+  const amount = parseFloat(document.getElementById('exp-amount').value).toFixed(2);
+  const status = document.getElementById('exp-status').value;
+
+  const statusClass = status.toLowerCase();
+  const formattedAmount = formatCurrency(amount);
+
+  const tr = document.createElement('tr');
+  tr.setAttribute('data-status', status);
+  tr.setAttribute('data-amount', amount);
+  tr.innerHTML = `
+    <td>${date}</td>
+    <td>${category}</td>
+    <td>${description}</td>
+    <td>${formattedAmount}</td>
+    <td><span class="approval-status ${statusClass}">${status}</span></td>
+  `;
+  
+  recentBody.prepend(tr);
+
+  updateCards();
+  e.target.reset();
+  document.getElementById('exp-date').value = new Date().toISOString().split('T')[0];
+  closeModal();
+});
+
+// --- APPROVAL LOGIC ---
+
+function setupApprovalButtons() {
+  const approvalsBody = document.getElementById('approvals-body');
+  const approvalRows = approvalsBody.querySelectorAll('tr');
+  const canApprove = (user.role === 'Manager' || user.role === 'Admin');
+
+  approvalRows.forEach(row => {
+    const employee = row.getAttribute('data-employee');
+    const date = row.getAttribute('data-date');
+    const category = row.getAttribute('data-category');
+    const amount = row.getAttribute('data-amount');
+    const formattedAmount = formatCurrency(amount);
+
+    const actionsCell = row.querySelector('.approval-actions');
+    const approveBtn = actionsCell.querySelector('.approve-btn');
+    const rejectBtn = actionsCell.querySelector('.reject-btn');
+
+    approveBtn.disabled = !canApprove;
+    rejectBtn.disabled = !canApprove;
+
+    // Clone and replace buttons to clear old event listeners
+    const newApproveBtn = approveBtn.cloneNode(true);
+    approveBtn.parentNode.replaceChild(newApproveBtn, approveBtn);
+    const newRejectBtn = rejectBtn.cloneNode(true);
+    rejectBtn.parentNode.replaceChild(newRejectBtn, rejectBtn);
+
+    newApproveBtn.addEventListener('click', function() {
+      if (!canApprove) return;
+      
+      // FIX 1: Add status class for styling
+      actionsCell.innerHTML = `<span class="approval-status approved">Approved</span>`;
+      
+      // Add approved expense to the recent list for card calculation
+      const tr = document.createElement('tr');
+      tr.setAttribute('data-status', 'Approved');
+      tr.setAttribute('data-amount', amount);
+      tr.innerHTML = `
+        <td>${date}</td>
+        <td>${category}</td>
+        <td>Expense for ${employee}</td>
+        <td>${formattedAmount}</td>
+        <td><span class="approval-status approved">Approved</span></td>
+      `;
+      recentBody.prepend(tr);
+      
+      updateCards();
+    });
+
+    newRejectBtn.addEventListener('click', function() {
+      if (!canApprove) return;
+      
+      // FIX 2: Add status class for styling
+      actionsCell.innerHTML = `<span class="approval-status rejected">Rejected</span>`;
+      
+      updateCards();
+    });
+  });
+}
+
+// --- INITIALIZATION ---
+if (user.role !== 'Manager' && user.role !== 'Admin') {
+  approvalsTab.style.display = 'none';
+}
+
+updateCards();
+</script>
+</body>
+</html>
