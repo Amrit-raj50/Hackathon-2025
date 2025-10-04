@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload Receipts</title>
+  <link rel="stylesheet" href="upload.css" />
+</head>
+<body>
+  <div class="main">
+    <h2 style="text-align:center; color:#006FEE;">Upload Financial Documents</h2>
+    <div style="text-align:center; margin-top:40px;">
+      <input type="file" id="fileUpload" />
+      <button id="submitUpload" style="padding:10px 15px; background:#006FEE; color:#fff; border:none; border-radius:5px; margin-left:10px;">Upload</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("submitUpload").addEventListener("click", () => {
+      alert("File uploaded successfully!");
+      window.location.href = "index.html"; // back to main page
+    });
+  </script>
+</body>
+</html>
