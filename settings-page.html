@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Settings</title>
+  <style>
+    :root{
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --brand: #0f6cff;
+      --accent: #06b6d4;
+      --danger: #ef4444;
+      --glass: rgba(15,108,255,0.06);
+      --radius: 12px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+                   Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: linear-gradient(180deg,var(--bg), #eef2f7);
+      color:#111827;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:32px;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:280px 1fr;
+      gap:28px;
+      align-items:start;
+    }
+    @media (max-width:880px){
+      .wrap{grid-template-columns:1fr; padding:0 16px}
+      .sidebar{order:2}
+      .main{order:1}
+    }
+    .sidebar{
+      position:sticky;
+      top:32px;
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:20px;
+      box-shadow:0 6px 18px rgba(16,24,40,0.06);
+      height:fit-content;
+    }
+    .profile{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      margin-bottom:18px;
+    }
+    .avatar{
+      width:56px;
+      height:56px;
+      border-radius:12px;
+      background:linear-gradient(135deg,var(--brand),var(--accent));
+      display:inline-grid;
+      place-items:center;
+      color:#fff;
+      font-weight:700;
+      font-size:18px;
+    }
+    .profile h3{margin:0;font-size:16px}
+    .profile p{margin:0;font-size:13px;color:var(--muted)}
+    .sidebar .balance{
+      background:linear-gradient(90deg,#fff,#fbfdff);
+      margin:12px 0 16px;
+      padding:12px;
+      border-radius:10px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      box-shadow:0 2px 8px rgba(15,20,40,0.03);
+    }
+    .nav{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .nav a{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      padding:10px;
+      border-radius:10px;
+      color:#0f172a;
+      font-size:14px;
+    }
+    .nav a:hover, .nav a[aria-current="true"]{
+      background:var(--glass);
+      color:var(--brand);
+    }
+    .nav svg{opacity:0.9}
+    .main{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:0 8px 30px rgba(16,24,40,0.06);
+    }
+    .main-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:18px;
+    }
+    .main-header h1{margin:0;font-size:20px}
+    .search{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      background:#f3f6fb;
+      padding:8px 10px;
+      border-radius:10px;
+    }
+    .search input{
+      border:0; background:transparent; outline:none; width:220px;
+    }
+
+    .panel{margin-bottom:18px; padding:14px; border-radius:10px; background:linear-gradient(180deg,#fff,#fbfdff)}
+    .panel h2{margin:0 0 8px 0; font-size:15px}
+    .panel p{margin:0;color:var(--muted);font-size:13px}
+    .row{display:flex;gap:16px;align-items:center;margin-top:12px;flex-wrap:wrap}
+    .col{flex:1;min-width:220px}
+    .button{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;background:var(--brand);color:#fff;border:0;cursor:pointer;
+      box-shadow:0 6px 18px rgba(15,108,255,0.12);
+    }
+
+    .toggle{
+      width:46px;height:28px;border-radius:20px;background:#e6eefb;position:relative;cursor:pointer;
+      flex-shrink:0;display:inline-block;vertical-align:middle;
+    }
+    .toggle .dot{
+      position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:white;transition:all 160ms ease;
+      box-shadow:0 2px 8px rgba(16,24,40,0.08);
+    }
+    .toggle[aria-pressed="true"]{background:linear-gradient(90deg,var(--brand),var(--accent))}
+    .toggle[aria-pressed="true"] .dot{left:21px}
+
+    label{display:block;font-size:13px;margin-bottom:6px;color:var(--muted)}
+    input[type="text"], input[type="email"], select{
+      width:100%; padding:10px 12px;border-radius:8px;border:1px solid #e6edf6;background:#fff;
+      outline:none;font-size:14px;
+    }
+    input[type="text"]:focus, input[type="email"]:focus, select:focus{box-shadow:0 0 0 4px rgba(15,108,255,0.06);border-color:var(--brand)}
+
+  
+    .card-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+    .card-item{display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:10px;border:1px solid #eef3ff}
+    .muted{color:var(--muted);font-size:13px}
+    .danger{border-left:4px solid rgba(239,68,68,0.12); background:#fff6f6}
+    .danger .button{background:var(--danger);box-shadow:none}
+
+
+    .small{font-size:13px;color:var(--muted)}
+    .hr{height:1px;background:#f1f5f9;margin:16px 0;border-radius:2px}
+  
+    a:focus, button:focus, .toggle:focus, input:focus {outline:3px solid rgba(6,182,212,0.12);outline-offset:2px}
+  </style>
+</head>
+<body>
+  <div class="wrap" role="application" aria-label="Settings for Expense Manager">
+  
+    <aside class="sidebar" aria-label="Settings navigation">
+      <div class="profile">
+        <div class="avatar" aria-hidden="true">Us</div>
+        <div>
+          <h3>User</h3>
+          <p class="small">Premium • Joined 2024</p>
+        </div>
+      </div>
+
+      <div class="balance" aria-hidden="true">
+        <div>
+          <div class="small">Monthly Budget</div>
+          <strong style="font-size:16px">₹24,000</strong>
+        </div>
+        <div class="small muted">Active</div>
+      </div>
+
+      <nav class="nav" aria-label="Account sections">
+        <a href="#" aria-current="true">
+       
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 12a5 5 0 100-10 5 5 0 000 10zM3 21a9 9 0 1118 0H3z" fill="currentColor"></path></svg>
+          Account
+        </a>
+        <a href="#notifications">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 22a2 2 0 002-2H10a2 2 0 002 2zM18 16v-5a6 6 0 10-12 0v5l-2 2v1h16v-1l-2-2z" fill="currentColor"/></svg>
+          Notifications
+        </a>
+        <a href="#payments">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 7H3v10h18V7zM3 7l2-3h14l2 3" fill="currentColor"/></svg>
+          Payment Methods
+        </a>
+        <a href="#security">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 1l9 4v6c0 5-3.5 9.8-9 11-5.5-1.2-9-6-9-11V5l9-4z" fill="currentColor"/></svg>
+          Security
+        </a>
+        <a href="#appearance">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M4.2 4.2l2.2 2.2M17.6 17.6l2.2 2.2M1 12h3M20 12h3M4.2 19.8l2.2-2.2M17.6 6.4l2.2-2.2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Appearance
+        </a>
+        <a href="#integrations">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path d="M3 12h18M12 3v18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Integrations
+        </a>
+        <a href="#data">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 2v8m0 4v8M4 7h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Export & Delete
+        </a>
+      </nav>
+    </aside>
+
+    <main class="main" aria-live="polite">
+      <div class="main-header">
+        <div>
+          <h1>Settings</h1>
+          <p class="small">Manage your account, preferences, security and integrations.</p>
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center;">
+          <div class="search" role="search" aria-label="Search settings">
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            <input type="text" placeholder="Search settings..." aria-label="Search settings">
+          </div>
+          <button class="button" title="Save changes">Save</button>
+        </div>
+      </div>
+
+      <section class="panel" aria-labelledby="accountTitle">
+        <h2 id="accountTitle">Account</h2>
+        <p class="small">Profile information used on your account and receipt details.</p>
+
+        <div class="row" style="margin-top:14px;">
+          <div class="col">
+            <label for="fullName">Full name</label>
+            <input id="fullName" type="text" value="User">
+          </div>
+
+          <div class="col">
+            <label for="email">Email address</label>
+            <input id="email" type="email" value="user@example.com">
+          </div>
+
+          <div class="col" style="min-width:160px;">
+            <label for="currency">Default currency</label>
+            <select id="currency">
+              <option>INR — ₹</option>
+              <option>USD — $</option>
+              <option>EUR — €</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+     
+      <section id="notifications" class="panel" aria-labelledby="notificationsTitle">
+        <h2 id="notificationsTitle">Notifications</h2>
+        <p class="small">Control what notifications you receive from Expense Manager.</p>
+
+        <div class="row">
+          <div class="col">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <strong>Email alerts</strong>
+                <div class="small muted">Send monthly summaries & important alerts</div>
+              </div>
+              <div class="toggle" role="button" tabindex="0" aria-pressed="true" aria-label="Toggle email alerts">
+                <div class="dot"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <strong>Push notifications</strong>
+                <div class="small muted">Receive real-time updates on your phone</div>
+              </div>
+              <div class="toggle" role="button" tabindex="0" aria-pressed="false" aria-label="Toggle push notifications">
+                <div class="dot"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+     
+      <section id="payments" class="panel" aria-labelledby="paymentsTitle">
+        <h2 id="paymentsTitle">Payment Methods</h2>
+        <p class="small">Manage your saved cards, bank accounts and preferred payment method.</p>
+
+        <div class="card-list">
+          <div class="card-item">
+            <div>
+              <strong>Visa • •••• 4321</strong>
+              <div class="small muted">Expires 10/2027 • Billing address: Home</div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <button class="button" style="background:#0ea5a4">Set primary</button>
+              <button class="button" style="background:#eef2ff;color:var(--brand); box-shadow:none">Edit</button>
+            </div>
+          </div>
+
+          <div class="card-item">
+            <div>
+              <strong>Bank • HDFC • Savings</strong>
+              <div class="small muted">UPI linked • Verified</div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <button class="button" style="background:#eef2ff;color:var(--brand); box-shadow:none">Edit</button>
+              <button class="button" style="background:#fff;border:1px solid #e6eefb;color:var(--brand)">Remove</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+        <div style="display:flex;gap:10px;align-items:center;margin-top:12px;">
+          <button class="button">Add payment method</button>
+          <span class="small muted">Supports UPI, cards & netbanking</span>
+        </div>
+      </section>
+
+      <section id="security" class="panel" aria-labelledby="securityTitle">
+        <h2 id="securityTitle">Security</h2>
+        <p class="small">Keep your account safe — password, 2FA and device sessions.</p>
+
+        <div class="row">
+          <div class="col">
+            <label for="password">Change password</label>
+            <input id="password" type="text" placeholder="••••••••">
+            <div class="small muted" style="margin-top:8px">Last changed: Aug 13, 2025</div>
+          </div>
+
+          <div class="col">
+            <label>Two-factor authentication</label>
+            <div style="display:flex;gap:12px;align-items:center;margin-top:8px;">
+              <div class="toggle" role="button" tabindex="0" aria-pressed="true" aria-label="Toggle two-factor">
+                <div class="dot"></div>
+              </div>
+              <div class="small muted">Using SMS + Authenticator</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+        <div class="row">
+          <div class="col">
+            <strong>Active sessions</strong>
+            <div class="small muted">1 active session • Last used 2 days ago</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="button" style="background:#eef2ff;color:var(--brand)">Sign out other sessions</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="appearance" class="panel" aria-labelledby="appearanceTitle">
+        <h2 id="appearanceTitle">Appearance</h2>
+        <p class="small">Customize your theme and date/currency display.</p>
+
+        <div class="row" style="margin-top:12px;">
+          <div style="min-width:160px;">
+            <label for="theme">Theme</label>
+            <select id="theme">
+              <option>System default</option>
+              <option>Light</option>
+              <option>Dark</option>
+            </select>
+          </div>
+
+          <div style="min-width:220px;">
+            <label for="dateFormat">Date format</label>
+            <select id="dateFormat">
+              <option>DD/MM/YYYY</option>
+              <option>MM/DD/YYYY</option>
+              <option>YYYY-MM-DD</option>
+            </select>
+          </div>
+        </div>
+      </section>
+      <section id="integrations" class="panel" aria-labelledby="integrationsTitle">
+        <h2 id="integrationsTitle">Integrations</h2>
+        <p class="small">Connect your accounts to banks, Google Drive and other apps.</p>
+
+        <div class="row" style="margin-top:12px;">
+          <div class="col">
+            <label>Google Drive</label>
+            <div class="small muted">Auto backups of receipts and exports</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="button" style="background:#3b82f6">Connect</button>
+            <button class="button" style="background:#eef2ff;color:var(--brand)">Manage</button>
+          </div>
+        </div>
+      </section>
+
+     
+      <section id="data" class="panel danger" aria-labelledby="dataTitle">
+        <h2 id="dataTitle">Export & Account Deletion</h2>
+        <p class="small">Export your data or permanently delete your account.</p>
+
+        <div class="row" style="margin-top:12px;">
+          <div class="col">
+            <label>Export data</label>
+            <div class="small muted">Download a CSV or JSON backup of your transactions and receipts.</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="button" style="background:#fff;border:1px solid #e6eefb;color:var(--brand)">Export</button>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <strong>Delete account</strong>
+            <div class="small muted">This action is irreversible. All data will be removed.</div>
+          </div>
+          <div>
+            <button class="button" style="background:#fff;border:1px solid #fee2e2;color:var(--danger)">Deactivate</button>
+            <button class="button" style="margin-left:8px;background:var(--danger)">Delete account</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+  <script>
+    document.querySelectorAll('.toggle').forEach(t => {
+      t.addEventListener('click', () => {
+        const pressed = t.getAttribute('aria-pressed') === 'true';
+        t.setAttribute('aria-pressed', String(!pressed));
+      });
+
+      t.addEventListener('keydown', e => {
+        if(e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          t.click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
