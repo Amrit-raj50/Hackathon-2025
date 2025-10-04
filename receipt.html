@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="receipt.css">
+</head>
+<body>
+   <div class="expense-form-container">
+        <div class="header">
+            <button class="attach-receipt-btn">Attach Receipt</button>
+            <nav class="breadcrumb">Draft > Waiting approval > Approved</nav>
+        </div>
+
+        <form class="expense-form" action="#" method="post">
+            <div class="form-grid">
+                <div class="form-column">
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" id="description" name="description">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <input type="text" id="category" name="category">
+                    </div>
+                    <div class="form-group amount-group">
+                        <label for="amount">Total amount in currency selection</label>
+                        <div class="amount-input-wrapper">
+                            <input type="number" id="amount" name="amount" value="567">
+                            <select id="currency" name="currency">
+                                <option value="USD">$</option>
+                                <option value="EUR">€</option>
+                                <option value="GBP">£</option>
+                                <option value="INR">₹</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-column">
+                    <div class="form-group">
+                        <label for="expense-date">Expense Date</label>
+                        <input type="text" id="expense-date" name="expense-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="paid-by">Paid by</label>
+                        <select id="paid-by" name="paid-by">
+                            <option>Company Card</option>
+                            <option>Personal Account</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="remarks">Remarks</label>
+                        <textarea id="remarks" name="remarks"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="approval-info">
+                <div class="info-item">
+                    <span class="info-label">Approver</span>
+                    <span class="info-value">Sarah</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Status</span>
+                    <span class="info-value">Approved</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Time</span>
+                    <span class="info-value">12:44 4th Oct, 2025</span>
+                </div>
+            </div>
+
+            <div class="form-footer">
+                <button type="submit" class="submit-btn">Submit</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
