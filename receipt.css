@@ -19,6 +19,9 @@
     border-radius:2vmin ;
     padding: 2rem;
    }
+   img{
+    margin-top: -3vmin;
+   }
  .header {
             display: flex;
             justify-content: space-between;
