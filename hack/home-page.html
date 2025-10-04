@@ -315,10 +315,10 @@ tbody tr:hover { background: #f9fbff; }
     </div>
     <div class="menu">
       <a class="active" data-section="dashboard"><i class="fa-solid fa-house"></i> Dashboard</a>
-      <a data-section="add-expense" id="add-expense-link"><i class="fa-solid fa-plus-circle"></i> Add Expense</a>
+      <a data-section="add-expense" id="add-expense-link"  href="../upload-page/upload-page.html"><i class="fa-solid fa-plus-circle"></i> Add Expense</a>
       <a data-section="approvals" id="approvals-tab"><i class="fa-solid fa-list-check"></i> Approvals</a>
       <a data-section="reports"><i class="fa-solid fa-chart-line"></i> Reports</a>
-      <a data-section="settings"><i class="fa-solid fa-cog"></i> Settings</a>
+      <a data-section="settings" href="../settings/settings-page.html"><i class="fa-solid fa-cog"></i> Settings</a>
     </div>
   </div>
   <div class="logout"><a href="javascript:void(0)"><i class="fa-solid fa-sign-out-alt"></i> Log Out</a></div>
@@ -331,10 +331,12 @@ tbody tr:hover { background: #f9fbff; }
       <h2 id="section-title">Dashboard</h2>
     </div>
     <div class="user">
-      <div class="user-info">
-        <div class="user-name" id="userName">Alex Johnson</div>
-        <div class="user-role" id="userRole">Manager</div>
-      </div>
+      <a href="../settings/profile.html" class="user">
+  <div class="user-info">
+    <div class="user-name" id="userName">Alex Johnson</div>
+    <div class="user-role" id="userRole">Manager</div>
+  </div>
+</a>
       <img src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png" alt="Profile">
     </div>
   </div>
@@ -395,9 +397,9 @@ tbody tr:hover { background: #f9fbff; }
     </div>
   </div>
   
-  <button class="ai-chat-btn" onclick="openAIChat()">
+  <button class="ai-chat-btn">
     <i class="fa-solid fa-dove"></i> 
-    <span class="ai-text">Larry AI</span>
+    <a class="ai-text" href="../AI/bot.html">Larry AI</a>
   </button>
   
   <div class="star-deco" id="star-tl">✨</div>
@@ -406,7 +408,7 @@ tbody tr:hover { background: #f9fbff; }
 
 <div class="modal" id="expense-modal">
   <div class="modal-content">
-    <button class="close-btn" onclick="closeModal()">×</button>
+    <button class="close-btn" onclick="closeModal()"></button>
     <h3>Add New Expense</h3>
     <form id="expense-form">
       <input type="date" id="exp-date" required value="">
