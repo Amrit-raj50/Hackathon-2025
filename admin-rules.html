@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin View (Approval Rules)</title>
+    <link rel="stylesheet" href="admin-rules.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-container">
+       
+        <div class="header">
+            <div class="header-content">
+                <i class="fas fa-cog header-icon"></i>
+                <h1>Admin View (Approval Rules)</h1>
+            </div>
+        </div>
+
+       
+        <div class="main-grid">
+            
+        
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-users"></i>
+                    <h2>Rule Configuration</h2>
+                </div>
+                <div class="card-content">
+                    
+                   
+                    <div class="form-group">
+                        <label for="user">User</label>
+                        <input type="text" id="user" name="user" placeholder="Enter user name" class="form-input">
+                    </div>
+
+                   
+                    <div class="form-group">
+                        <label for="description">Description about rules</label>
+                        <textarea id="description" name="description" placeholder="Enter rule description" class="form-textarea">Approval rule for miscellaneous expenses</textarea>
+                    </div>
+
+                
+                    <div class="form-group">
+                        <label for="manager">Manager</label>
+                        <div class="select-wrapper">
+                            <select id="manager" name="manager" class="form-select">
+                                <option value="Sarah Connor">Sarah Connor - HR</option>
+                                <option value="David Wilson">David Wilson - Operations</option>
+                                <option value="Emma Davis">Emma Davis - Sales</option>
+                                <option value="Michael Brown">Michael Brown - IT</option>
+                                <option value="Lisa Miller">Lisa Miller - Legal</option>
+                            </select>
+                            <i class="fas fa-chevron-down select-icon"></i>
+                        </div>
+                        <p class="helper-text">
+                            Dynamic dropdown: Initially the manager set on user record should be set, admin can change manager for approval if required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-check-circle"></i>
+                    <h2>Approvers</h2>
+                </div>
+                <div class="card-content">
+                    
+                  
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="isManagerApprover" name="isManagerApprover">
+                            <label for="isManagerApprover" class="checkbox-label">
+                                <span class="checkbox-text">Is manager an approver?</span>
+                            </label>
+                        </div>
+                        <p class="helper-text">
+                            If this field is checked then by default the approver request would go to his/her manager first before going to other approvers.
+                        </p>
+                    </div>
+
+                    <div class="separator"></div>
+
+               
+                    <div class="approvers-section">
+                        <div class="section-header">
+                            <h3>Approver List</h3>
+                            <button class="add-button" onclick="addApprover()">
+                                <i class="fas fa-plus"></i>
+                                Add Approver
+                            </button>
+                        </div>
+                        
+                        <div class="approvers-list">
+                          
+                            <div class="approver-header">
+                                <div class="col-number">#</div>
+                                <div class="col-user">User</div>
+                                <div class="col-required">Required</div>
+                                <div class="col-action">Action</div>
+                            </div>
+                            
+                           
+                            <div class="approver-row">
+                                <div class="col-number">
+                                    <span class="badge">1</span>
+                                </div>
+                                <div class="col-user">
+                                    <input type="text" value="John Smith" class="form-input">
+                                </div>
+                                <div class="col-required">
+                                    <input type="checkbox" checked>
+                                </div>
+                                <div class="col-action">
+                                    <button class="remove-button" onclick="removeApprover(this)">×</button>
+                                </div>
+                            </div>
+
+                            <div class="approver-row">
+                                <div class="col-number">
+                                    <span class="badge">2</span>
+                                </div>
+                                <div class="col-user">
+                                    <input type="text" value="Mitchell Johnson" class="form-input">
+                                </div>
+                                <div class="col-required">
+                                    <input type="checkbox">
+                                </div>
+                                <div class="col-action">
+                                    <button class="remove-button" onclick="removeApprover(this)">×</button>
+                                </div>
+                            </div>
+
+                            <div class="approver-row">
+                                <div class="col-number">
+                                    <span class="badge">3</span>
+                                </div>
+                                <div class="col-user">
+                                    <input type="text" value="Andreas Weber" class="form-input">
+                                </div>
+                                <div class="col-required">
+                                    <input type="checkbox">
+                                </div>
+                                <div class="col-action">
+                                    <button class="remove-button" onclick="removeApprover(this)">×</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <p class="helper-text">
+                            <strong>Required:</strong> If this field is ticked then this approver must approve/reject the expense, otherwise approval cannot proceed.
+                        </p>
+                    </div>
+
+                    <div class="separator"></div>
+
+                 
+                    <div class="checkbox-group">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="approversSequence" name="approversSequence">
+                            <label for="approversSequence" class="checkbox-label">
+                                <span class="checkbox-text">Approvers Sequence:</span>
+                            </label>
+                        </div>
+                        <div class="sequence-description">
+                            <p class="helper-text">If this field is ticked then the above mentioned sequence of approvers matters.</p>
+                            <p class="helper-text">That is first the request goes to John, if he approves/rejects then only request goes to Mitchell and so on.</p>
+                            <p class="helper-text">If the required approver rejects the request, then expense request is auto-rejected.</p>
+                            <p class="helper-text">If not ticked then send approver request to all approvers at the same time.</p>
+                        </div>
+                    </div>
+
+                    <div class="separator"></div>
+
+                    <div class="form-group">
+                        <label for="minApprovalPercentage">Minimum Approval Percentage</label>
+                        <div class="percentage-input">
+                            <input type="number" id="minApprovalPercentage" name="minApprovalPercentage" placeholder="0" min="0" max="100" class="form-input percentage-field">
+                            <span class="percentage-symbol">%</span>
+                        </div>
+                        <p class="helper-text">
+                            Specify the number or percentage of approvers required in order to get the request approved.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="error-card" id="errorCard" style="display: none;">
+            <div class="error-content">
+                <div class="error-header">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <h3>Validation Errors</h3>
+                </div>
+                <ul id="errorList">
+                
+                </ul>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="reset-button" onclick="resetForm()">
+                <i class="fas fa-times"></i>
+                Reset
+            </button>
+            
+            <div class="right-buttons">
+                <button class="cancel-button">
+                    Cancel
+                </button>
+                <button class="save-button" onclick="saveRule()">
+                    <i class="fas fa-save"></i>
+                    Save Rule
+                </button>
+            </div>
+        </div>
+
+  
+        <div class="toast" id="toast">
+            <div class="toast-content">
+                <i class="fas fa-check-circle toast-icon"></i>
+                <div class="toast-message">
+                    <div class="toast-title">Success!</div>
+                    <div class="toast-description">Approval rule has been saved successfully.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin-approval-rules.js"></script>
+</body>
+</html>
