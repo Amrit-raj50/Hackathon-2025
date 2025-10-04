@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+        width: 430px;
+    height: 932px;
+}
+.details {
+    width: 430px;
+    height: 932px;
+    border: 1px solid #006fee;
+    display: flex;
+    justify-self: center;
+}
+
+form {
+    margin: 40px;
+}
+
+form div label{
+    display: block;
+}
+
+form div input {
+    border: none;
+    border-bottom: 2px solid #006fee;
+} 
+
+form div select {
+    border: none;
+    border-bottom: 2px solid #006fee;
+} 
+
+.logo {
+    background-image: url(../assets/logo2.svg);
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 200px;
+    height: 100px;
+    width: 200px;      
+    margin-bottom: 100px;
+    margin-top: 10px;
+}
+
+.Signup {
+    margin-top: 80%;
+    margin-left: 5rem;
+    height: 4rem;
+    width: 10rem;
+    font-size: 1.5rem;
+    border-radius: 0.6rem;
+    border: none;
+    background-color: #006fee;
+    color: white;
+}
