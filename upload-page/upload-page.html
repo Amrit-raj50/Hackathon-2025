@@ -1,34 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>upload-page</title>
-    <link rel="stylesheet" href="upload.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload Page</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    min-height: 100vh;
+    padding-bottom: 20px;
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+    width: 150px;
+}
+
+/* === STACKED BUTTONS === */
+.rt-head {
+    display: flex;
+    flex-direction: column; /* vertical alignment */
+}
+
+.rt-head a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #006FEE;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 10px; /* space between buttons */
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.rt-head a i {
+    margin-left: 8px;
+}
+
+.rt-head a:hover {
+    background-color: #0056c0;
+}
+
+.mid {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 95%;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 15px 20px;
+    border-radius: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.box p {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333333;
+}
+
+.box i {
+    font-size: 28px;
+    color: #006FEE;
+}
+
+.end {
+    width: 95%;
+    margin: 20px auto;
+    overflow-x: auto;
+}
+
+.tab {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+.tab th, .tab td {
+    padding: 10px 8px;
+    text-align: center;
+    border: 1px solid #006FEE;
+}
+
+.inp {
+    width: 90%;
+    padding: 6px 10px;
+    border-radius: 5px;
+    border: 1px solid #cccccc;
+    outline: none;
+    text-align: center;
+}
+
+/* === POPUP NOTIFICATION BELOW HEADER === */
+.popup-message {
+    position: fixed;
+    top: 20px; /* just below the nav/header */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #006FEE;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-size: 16px;
+    opacity: 0;
+    z-index: 9999;
+    transition: all 0.5s ease;
+}
+
+.popup-message.show {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.05);
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .mid {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .box i {
+        font-size: 22px;
+    }
+
+    .box p {
+        font-size: 16px;
+    }
+
+    .rt-head a {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+
+    .tab th, .tab td {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    .inp {
+        font-size: 12px;
+        padding: 4px 6px;
+    }
+}
+</style>
 </head>
 <body>
-    <div class="main">
+<div class="main">
+
+    <!-- HEADER -->
     <div class="head">
-        <div class="logo"><img src="finch logo 2.svg" alt=""></div>
+        <div class="logo"><img src="finch logo 2.svg" alt="Logo"></div>
         <div class="rt-head">
-        <div><a class="link-upload" href="upload.html">Upload <i class="fa-solid fa-upload" style="color: #ffffff;"></i></a></div>
-<div><a class="link-new" href="new.html">New<i class="fa-solid fa-circle-plus" style="color: #ffffff;"></i></a></div>
+            <a class="link-upload" href="upload.html">Upload <i class="fa-solid fa-upload"></i></a>
+            <a class="link-new" href="new.html">New <i class="fa-solid fa-circle-plus"></i></a>
         </div>
     </div>
-    <div class="mid">
-        <div class="box"><p id="submit">sdfgh</p></div>
-        <div class="box"><i class="fa-solid fa-arrow-right" style="color: #006fee;"></i></div>
-        <div class="box"><p id="approval">dfgh</p></div>
-        <div class="box"><i class="fa-solid fa-arrow-right" style="color: #006fee;"></i></div>
-        <div class="box"><p id="approved">sdfghj</p></div>
-    </div>
-    <div class="end">
-         <!-- <button id="addRowBtn">Add Row</button>  -->
 
-        <table class="tab" border="1">
+    <!-- MIDDLE STATUS BOXES -->
+    <div class="mid">
+        <div class="box"><p id="submit">&#8377;5723  <br> to submit</p></div>
+        <div class="box"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="box"><p id="approval">&#8377;674  <br> Waiting Approval</p></div>
+        <div class="box"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="box"><p id="approved">&#8377;500  <br> Approved</p></div>
+    </div>
+
+    <!-- TABLE WITH ADD ROW BUTTON -->
+    <div class="end">
+        <table class="tab">
             <tr>
                 <th>Employee</th>
                 <th>Description</th>
@@ -39,281 +208,77 @@
                 <th>Amount</th>
                 <th>Status</th>
             </tr>
+            <!-- Sample 2 rows -->
             <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
+                <td><input type="text" class="inp"></td>
+                <td><input type="text" class="inp"></td>
+                <td><input type="text" class="inp"></td>
+                <td><input type="text" class="inp"></td>
+                <td><input type="text" class="inp"></td>
+                <td><input type="text" class="inp"></td>
+                <td><input type="text" class="inp"></td>
+                <td><input type="text" class="inp"></td>
             </tr>
             <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
+                <td><input type="text" class="inp"></td>
+                <td><input type="text" class="inp"></td>
+                <td><input type="text" class="inp"></td>
+                <td><input type="text" class="inp"></td>
+                <td><input type="text" class="inp"></td>
+                <td><input type="text" class="inp"></td>
+                <td><input type="text" class="inp"></td>
+                <td><input type="text" class="inp"></td>
             </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-            <tr>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-                <td><input type="text" class="inp" name="" id=""></td>
-            </tr>
-           
-               
         </table>
-    </div></div>
-    <div class="popup-message" id="popupMsg"></div>
-    <script src="upload.js"></script>
+    </div>
+</div>
+
+<div class="popup-message" id="popupMsg"></div>
+
+<script>
+// ===== ADD NEW ROW BUTTON DYNAMICALLY =====
+const newRowBtn = document.createElement("button");
+newRowBtn.id = "newRow";
+newRowBtn.textContent = "+ Add Row";
+newRowBtn.style.cssText = `
+  background-color: #006FEE;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+`;
+document.querySelector(".end").prepend(newRowBtn);
+
+// ADD ROW FUNCTIONALITY
+newRowBtn.addEventListener("click", () => {
+    const table = document.querySelector(".tab");
+    const newRow = document.createElement("tr");
+
+    for (let i = 0; i < 8; i++) {
+        const td = document.createElement("td");
+        const input = document.createElement("input");
+        input.type = "text";
+        input.className = "inp";
+        td.appendChild(input);
+        newRow.appendChild(td);
+    }
+    table.appendChild(newRow);
+    showPopup("New Row Added ✅");
+});
+
+// POPUP FUNCTION
+function showPopup(message) {
+    const popup = document.getElementById('popupMsg');
+    popup.textContent = message;
+    popup.classList.add('show');
+    setTimeout(() => popup.classList.remove('show'), 2000);
+}
+</script>
 </body>
 </html>
