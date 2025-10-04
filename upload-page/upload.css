@@ -1,230 +1,137 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-.main{
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-    height: 100vh;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload Receipts</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
 
-}
-.head{
-    display: flex;
-    width: 100vw;
-    /* border: 1px solid red; */
-    height: 7vh;
-    align-items: center;
-    padding: 0px 50px;
-   
-    justify-content: right;
-    margin-bottom: 20px;
-    margin-left: 17px;
-    margin-top: 20px;
-     justify-content: space-between;
-}
-.logo{
-    margin-bottom: 15px;
-    margin-left: -90px;
+    body {
+      background-color: #f8f8f8;
+    }
 
-    img{
-        width: 30vmin;
-        height: 10vmin;
+    .main {
+      width: 100vw;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
     }
-}
-.rt-head{
-    display: flex;
-    justify-content: right;
-    justify-content: space-between;
-    
-    a{
-        background-color: #006FEE;
-        padding: 10px;
-        border-radius: 10px;
-        margin-left: 10px;
-    }
-    
-}
-#upload,#new{
-    padding: 10px 15px;
-    /* align-items: center; */
-    display: flex;
-    /* align-items: center; */
-    /* align-content: center; */
-    border-style: none;
-    background-color: #006FEE;
-    border-radius: 5px;
-    margin-right: 10px;
-    
-}
-.link-upload,.link-new{
-    i{
-        margin-left: 5px;
-        font-size: 21px;
-    }
-    font-size: 20px;
-    text-decoration: none;
-    color: #ffffff;
-}
-.mid{
-    width: 98vw;
-    height: 11vmin;
-    border: 2px solid #006FEE;
-    border-radius: 30px;
-    margin-left: 15px ;
-    display: flex;
-    margin-bottom: 30px;
-}
-.box{
-    width: 20vw;
-    /* border: 1px solid red; */
-    /* align-items: center; */
-    align-content: center;
-    /* margin: auto; */
-    /* justify-content: center; */
 
-    p{
-        /* margin: auto; */
-        margin-left: 20px;
-        font-size:30px
+    h2 {
+      color: #006FEE;
+      margin-bottom: 30px;
     }
-    i{
-        font-size: 80px;
-        margin-left: 100px
-    }
-}
-.end{
-    overflow-y:auto ;
-    overflow-x: hidden;
-    scrollbar-width: none;
-}
-.tab{
-    border: 3px solid #006FEE;
-    width: 98vw;
-    margin-left: 15px;
-    tr,th{
-        height: 5vmin;
-        overflow-x: auto;
-        overflow-y: hidden;
-        scrollbar-width: none;
-    }
-    border-collapse: collapse;
-    
-}
-.inp {
-      width: 95%;
-      padding: 8px 10px;
-      /* border: 1.8px solid #ffffff; */
+
+    #fileUpload {
+      padding: 10px;
       border-radius: 6px;
+      border: 1px solid #ccc;
       font-size: 14px;
       outline: none;
+    }
+
+    #submitUpload {
+      padding: 12px 20px;
+      background-color: #006FEE;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-left: 10px;
       transition: 0.3s ease;
-      background-color: #ffffff;
-      text-align: center;
-      margin-left: 5px;
-      border-style: none;
-    
     }
 
-    /* ===== POPUP NOTIFICATION ===== */
-/* ===== POPUP NOTIFICATION ===== */
-.popup-message {
-  position: fixed;
-  top: 20px;
-  /* margin: auto; */
-  right: 700px; /* top-right corner */
-  background-color: #006FEE; /* same as Upload/New button */
-  color: #ffffff;
-  padding: 12px 25px;
-  border-radius: 8px;
-  font-size: 16px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-  z-index: 9999;
-  transition: all 0.5s ease;
-}
+    #submitUpload:hover {
+      background-color: #0051b3;
+    }
 
-.popup-message.show {
-  opacity: 1;
-  transform: scale(1);
-}
+    /* Popup notification */
+    .popup-message {
+      position: fixed;
+      top: 90px; /* below nav/header */
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #006FEE;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 8px;
+      font-size: 16px;
+      opacity: 0;
+      z-index: 9999;
+      transition: all 0.5s ease;
+    }
 
+    .popup-message.show {
+      opacity: 1;
+      transform: translateX(-50%) scale(1.05);
+    }
 
-/* for standard mobiles */
- @media (max-width: 600px) {
-      .head{
-        width: 100vw;
-        /* padding:0px 0px; */
-        /* padding-left: 10px; */
-        justify-content: right;
-        /* padding-left: 50px; */
-        padding: 0px 0px;
-        
+    @media (max-width: 600px) {
+      #fileUpload {
+        width: 80%;
       }
-      #upload,#new{
-    padding: 8px 12px;
-    /* align-items: center; */
-    display: flex;
-    /* align-items: center; */
-    /* align-content: center; */
-    border-style: none;
-    background-color: #006FEE;
-    border-radius: 5px;
-    /* margin-right: 10px; */
-    
-}
-.link-upload,.link-new{
-    i{
-        margin-left: 5px;
-        font-size: 17px;
+      #submitUpload {
+        width: 80%;
+        margin-top: 10px;
+        margin-left: 0;
+      }
+      .upload-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
     }
-    font-size: 16px;
-    text-decoration: none;
-    color: #ffffff;
-}
-.mid{
-    margin-left: 20px;
-    width: 98vw;
-    
+  </style>
+</head>
+<body>
+  <div class="main">
+    <h2>Upload Financial Documents</h2>
+    <div class="upload-container" style="text-align:center; margin-top:40px;">
+      <input type="file" id="fileUpload" />
+      <button id="submitUpload">Upload</button>
+    </div>
+  </div>
 
-}
-.box{
-     p{
-        /* margin: auto; */
-        margin-left: 10px;
-        font-size:16px
-    }
-    i{
-        font-size: 20px;
-        margin-left: 1.5rem;
-        /* width: 40px; */
-    }
-}
-.end{
-    margin-top: 5px;
-    margin-left: 20px;
-}
-.tab{
-    width: 95vw;
-    margin-left: 20px;
-    margin: auto;
-    tr,th{
-        font-size: 10px;
-    }
+  <!-- Popup notification -->
+  <div class="popup-message" id="popupMsg">File uploaded successfully ✅</div>
 
-}
-.inp{
-    /* border: 1px solid red */
-    margin-left: 1px;
-    padding: 8px 10px;
-    height: 10px;
-}
+  <script>
+    const uploadBtn = document.getElementById("submitUpload");
+    const fileInput = document.getElementById("fileUpload");
+    const popup = document.getElementById("popupMsg");
+
+    uploadBtn.addEventListener("click", () => {
+      if (fileInput.files.length === 0) {
+        showPopup("Please select a file!", "#FF4D4D");
+        return;
+      }
+
+      // Here you can add your actual upload logic if needed
+      showPopup("File uploaded successfully ✅", "#006FEE");
+
+      // Optional: reset file input
+      fileInput.value = "";
+    });
+
+    function showPopup(message, color = "#006FEE") {
+      popup.textContent = message;
+      popup.style.backgroundColor = color;
+      popup.classList.add("show");
+      setTimeout(() => {
+        popup.classList.remove("show");
+      }, 2000);
     }
-
-    /* for large tablets */
-/* @media (max-width: 900px)  {
-      
-    }  */
-
-    
+  </script>
+</body>
+</html>
