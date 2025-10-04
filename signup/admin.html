@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+</head>
+<body>
+
+    <div class="details">
+        <form action="#", method="post">
+
+            <div class="logo"></div>
+
+            <div class="Name">
+                <label for="Name">Name</label>
+                <input type="text" aria-placeholder="Enter Company Name" required>
+            </div>   
+<br><br>
+            <div class="Email">
+                <label for="Email">Email</label>
+                <input type="email" aria-placeholder="Enter Company Email" required>
+            </div> 
+<br><br>
+            <div class="Password">
+                <label for="Password" >Password</label>
+                <input type="password" min="5" max="25" aria-placeholder="Enter Company Password" required>
+            </div>
+<br><br>    
+            <div class="confirm">
+                <label for="Password">Confirm</label>
+                <input type="password" min="5" max="25" aria-placeholder="Confirm Company Password" required>
+            </div>
+<br><br>
+            <div class="countries">
+                <select name="Country" id="country" required>
+                    <option value="India">India</option>
+                    <option value="USA">USA</option>
+                    <option value="Australia">Australia</option>
+                </select>
+            </div>
+<br><br>
+            <button type="submit" class="Signup">SignUp</button>
+        </form>
+    </div>
+</body>
+</html>
