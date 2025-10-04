@@ -4,23 +4,145 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>New Financial Entry</title>
-  <link rel="stylesheet" href="upload.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f8f8f8;
+    }
+
+    .main {
+      width: 100vw;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #006FEE;
+      margin-bottom: 30px;
+    }
+
+    form {
+      width: 60%;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-size: 16px;
+      color: #333;
+    }
+
+    .inp {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      outline: none;
+      font-size: 14px;
+      transition: 0.3s ease;
+    }
+
+    .inp:focus {
+      border-color: #006FEE;
+      box-shadow: 0 0 5px rgba(0,111,238,0.3);
+    }
+
+    button {
+      padding: 12px 20px;
+      background-color: #006FEE;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0051b3;
+    }
+
+    /* Popup notification */
+    .popup-message {
+      position: fixed;
+      top: 90px; /* below nav/header */
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #006FEE;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 8px;
+      font-size: 16px;
+      opacity: 0;
+      z-index: 9999;
+      transition: all 0.5s ease;
+    }
+
+    .popup-message.show {
+      opacity: 1;
+      transform: translateX(-50%) scale(1.05);
+    }
+
+    @media (max-width: 600px) {
+      form {
+        width: 90%;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="main">
-    <h2 style="text-align:center; color:#006FEE;">Create a New Expense Entry</h2>
-    <form style="width:60%; margin:auto; margin-top:40px;">
+    <h2>Create a New Expense Entry</h2>
+    <form id="newEntryForm">
       <label>Employee Name:</label>
-      <input type="text" class="inp" placeholder="Enter name"><br><br>
+      <input type="text" class="inp" placeholder="Enter name" required>
 
       <label>Description:</label>
-      <input type="text" class="inp" placeholder="Enter details"><br><br>
+      <input type="text" class="inp" placeholder="Enter details" required>
 
       <label>Amount:</label>
-      <input type="number" class="inp" placeholder="₹ Amount"><br><br>
+      <input type="number" class="inp" placeholder="₹ Amount" required>
 
-      <button type="submit" style="padding:10px 15px; background:#006FEE; color:#fff; border:none; border-radius:5px;">Save</button>
+      <button type="submit">Save</button>
     </form>
   </div>
+
+  <!-- Popup notification -->
+  <div class="popup-message" id="popupMsg">Saved successfully ✅</div>
+
+  <script>
+    const form = document.getElementById('newEntryForm');
+    const popup = document.getElementById('popupMsg');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault(); // prevent actual form submission
+      showPopup("Saved successfully ✅");
+      form.reset(); // clear the form
+    });
+
+    function showPopup(message) {
+      popup.textContent = message;
+      popup.classList.add('show');
+      setTimeout(() => {
+        popup.classList.remove('show');
+      }, 2000);
+    }
+  </script>
 </body>
 </html>
