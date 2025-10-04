@@ -1,83 +1,162 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }
 
-.details {
-    width: 421px;
-    height: 932px;
-    border: 1px solid #000;
-    display: flex;
-    justify-self: center;
-}
+ body {
+     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+     background: #006fee;
+     min-height: 100vh;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     padding: 1rem;
+ }
 
-form {
-    margin: 40px;
-    margin-top: 20px;
-    width: 100%;
-}
+ .container {
+     background: white;
+     border-radius: 1.5rem;
+     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+     width: 100%;
+     max-width: 420px;
+     overflow: hidden;
+ }
 
-form div label {
-    display: block;
-    margin-bottom: 5px;
-}
+ .form-wrapper {
+     padding: 2.5rem 2rem;
+ }
 
-form div input {
-    border: none;
-    border-bottom: 2px solid black;
-    width: 100%;
-    padding: 5px;
-    font-size: 1rem;
-}
+ .logo {
+     background-image: url(../assets/logo2.svg);
+     background-repeat: no-repeat;
+     background-position: center;
+     background-size: contain;
+     height: 80px;
+     width: 100%;
+     margin-bottom: 2rem;
+ }
 
-.logo{
-    background-image: url(../assets/logo2.svg);
-    background-repeat: no-repeat;
-    background-position: top center;
-    background-size: 160px;
-    height: 80px;            
-    width: 150px;
-    margin-bottom: 100px;
-}
+ h1 {
+     color: #333;
+     font-size: 1.75rem;
+     margin-bottom: 0.5rem;
+     text-align: center;
+ }
 
-.reset {
-    text-align: center;
-    margin-top: 4vh;
-}
+ .subtitle {
+     color: #666;
+     text-align: center;
+     margin-bottom: 2rem;
+     font-size: 0.9rem;
+ }
 
-.reset a {
-    text-decoration: none;
-    font-size: 0.9rem;
-}
+ .form-group {
+     margin-bottom: 1.5rem;
+     position: relative;
+ }
 
-.reset a:hover {
-    text-decoration: underline;
-}
+ label {
+     display: block;
+     color: #333;
+     font-weight: 500;
+     margin-bottom: 0.5rem;
+     font-size: 0.9rem;
+ }
 
-.Login {
-    margin-top: 40px;
-    margin-left: 5rem;
-    height: 3.5rem;
-    width: 10rem;
-    font-size: 1.5rem;
-    border-radius: 0.6rem;
-    border: none;
-    background-color: #006fee;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+ .input-wrapper {
+     position: relative;
+ }
 
-.Login:hover {
-    background-color: #0052b3;
-}
+ input {
+     width: 100%;
+     padding: 0.875rem 1rem;
+     border: 2px solid #e0e0e0;
+     border-radius: 0.5rem;
+     font-size: 1rem;
+     background: #f8f9fa;
+ }
 
-.ill {
-    background-image: url(../assets/illstration1.jpg);
-    background-repeat: no-repeat;
-    background-position: top center;
-    background-size: 360px;
-    height: 360px;            
-    width: 360px;
-}
+ input:focus {
+     outline: none;
+     border-color: #006fee;
+     background: white;
+     box-shadow: 0 0 0 3px rgba(0, 111, 238, 0.1);
+ }
+
+ input.error {
+     border-color: #dc3545;
+ }
+
+ input.success {
+     border-color: #28a745;
+ }
+
+ .error-message {
+     color: #dc3545;
+     font-size: 0.8rem;
+     margin-top: 0.25rem;
+     display: none;
+ }
+
+ .error-message.show {
+     display: block;
+ }
+
+ .password-toggle {
+     position: absolute;
+     right: 1rem;
+     top: 50%;
+     transform: translateY(-50%);
+     background: none;
+     border: none;
+     color: #666;
+     cursor: pointer;
+     padding: 0.25rem;
+     font-size: 1.1rem;
+ }
+
+ .password-toggle:hover {
+     color: #333;
+ }
+
+ .login-btn {
+     width: 100%;
+     padding: 1rem;
+     background: #006fee;
+     color: white;
+     border: none;
+     border-radius: 0.5rem;
+     font-size: 1.1rem;
+     font-weight: 600;
+     cursor: pointer;
+     margin-top: 1rem;
+ }
+
+ .login-btn:hover {
+     background: #0052b3;
+ }
+
+ .login-btn:active {
+     background: #003d82;
+ }
+
+ .illustration {
+     background-image: url(../assets/illstration1.jpg);
+     background-repeat: no-repeat;
+     background-position: center;
+     background-size: cover;
+     height: 200px;
+     width: 100%;
+     margin-top: 2rem;
+ }
+
+ @media (max-width: 480px) {
+     .form-wrapper {
+         padding: 2rem 1.5rem;
+     }
+
+     h1 {
+         font-size: 1.5rem;
+     }
+ }

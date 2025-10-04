@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,33 +10,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 
 </head>
+
 <body>
 
-    <div class="details">
-        <form action="#" method="post">
-
+    <div class="container">
+        <div class="form-wrapper">
             <div class="logo"></div>
 
-            <div class="Email">
-                <label for="Email">Email</label>
-                <input type="email" placeholder="Enter Company Email" required>
-            </div> 
-<br><br>
-            <div class="Password">
-                <label for="Password">Password</label>
-                <input type="password" minlength="5" maxlength="25" placeholder="Enter Company Password" required>
-            </div>
-<br><br>
-            <button type="submit" class="Login">Login</button>
-<br><br>
-            <div class="reset">
-                Don't have an account? <span style="color: blue;"> Signup</span>
-                <br> <hr>
-                <span style="color: blue;">Forgot password?</span>
-            </div>
+            <h1>Welcome Back</h1>
+            <p class="subtitle">Login to your account</p>
 
-            <div class="ill"></div>
-        </form>
+            <form id="loginForm" novalidate>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required
+                        autocomplete="email">
+                    <span class="error-message" id="emailError">Please enter a valid email address</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password" name="password" placeholder="Enter your password"
+                            minlength="5" maxlength="25" required autocomplete="current-password">
+                        <button type="button" class="password-toggle" id="togglePassword"
+                            aria-label="Toggle password visibility">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <span class="error-message" id="passwordError">Password must be at least 5 characters</span>
+                </div>
+
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+
+            <div class="illustration"></div>
+        </div>
     </div>
+
+    <script src="login.js"></script>
+
 </body>
+
 </html>
